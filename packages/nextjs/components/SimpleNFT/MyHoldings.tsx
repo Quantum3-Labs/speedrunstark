@@ -9,6 +9,7 @@ import { notification } from "~~/utils/scaffold-stark";
 import { getMetadataFromIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import { NFTMetaData } from "~~/utils/simpleNFT/nftsMetadata";
 import { decodeBigIntArrayToText } from "~~/utils/scaffold-stark/contractsData";
+import { byteArray, CairoUint256, CallData, Uint256, uint256 } from "starknet";
 
 export interface Collectible extends Partial<NFTMetaData> {
   id: number;
@@ -49,19 +50,29 @@ export const MyHoldings = ({
       const totalBalance = parseInt(myTotalBalance.toString());
       for (let tokenIndex = 0; tokenIndex < totalBalance; tokenIndex++) {
         try {
-          const tokenId = await yourCollectibleContract.functions[
-            "token_of_owner_by_index"
-          ](connectedAddress, BigInt(tokenIndex));
+          let tokenId = await yourCollectibleContract.call("token_of_owner_by_index", [connectedAddress, 0], { parseResponse : false}) as {result : bigint[]} | bigint[];
 
-          const tokenURI =
-            await yourCollectibleContract.functions["token_uri"](tokenId);
+          if (tokenId && tokenId.result != undefined) { tokenId = tokenId.result as bigint[]}
+         
+          tokenId = new CairoUint256({low : tokenId[0], high : tokenId[1]});
+          tokenId = tokenId.toBigInt();
+
+          let tokenURI = await yourCollectibleContract.call("token_uri", [tokenId], { parseResponse : false});
+          
+          if (tokenURI && tokenURI.result != undefined) { tokenURI = tokenURI.result as bigint[]}
+
+          tokenURI = decodeBigIntArrayToText(tokenURI);
+
 
           const ipfsHash = tokenURI.replace(
             /https:\/\/ipfs\.io\/(ipfs\/)?/,
             "",
           );
+          console.log(ipfsHash);
 
           const nftMetadata: NFTMetaData = await getMetadataFromIPFS(ipfsHash);
+
+          console.log(nftMetadata);
 
           collectibleUpdate.push({
             id: parseInt(tokenId.toString()),
