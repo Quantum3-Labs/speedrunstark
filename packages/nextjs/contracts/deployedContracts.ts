@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     ExampleExternalContract: {
       address:
-        "0x6f5cd9ecad75fe3b296ad149ceed2b11e1248feffcf6da70622b3c79da20f87",
+        "0x69ed874a997b3dc92e97c2f246fb67cd7492710802b56942765a865de868a5d",
       abi: [
         {
           type: "impl",
@@ -61,11 +61,11 @@ const deployedContracts = {
         },
       ],
       classHash:
-        "0x66e60aaac2b13b648b4189764def40f09014422a3f816b2ba58105d8196afe1",
+        "0x69646927cd745e79c8c5b522e4389c630813604b53d87dff6e59c0670288004",
     },
     Staker: {
       address:
-        "0x3206d4767b1826d08774b80ea4c9969785d4bc50c1979addb061570e18a7b7e",
+        "0x63de2598d7caa1c3cca689aa82dccf597c3633c17bc39588aa6450fc68a6867",
       abi: [
         {
           type: "impl",
@@ -102,7 +102,7 @@ const deployedContracts = {
         },
         {
           type: "struct",
-          name: "openzeppelin::token::erc20::interface::IERC20CamelDispatcher",
+          name: "openzeppelin_token::erc20::interface::IERC20CamelDispatcher",
           members: [
             {
               name: "contract_address",
@@ -206,7 +206,7 @@ const deployedContracts = {
               inputs: [],
               outputs: [
                 {
-                  type: "openzeppelin::token::erc20::interface::IERC20CamelDispatcher",
+                  type: "openzeppelin_token::erc20::interface::IERC20CamelDispatcher",
                 },
               ],
               state_mutability: "view",
@@ -291,7 +291,7 @@ const deployedContracts = {
         },
       ],
       classHash:
-        "0x5006b94c1d973bf02543c308c9c61ef70407ad4fb91108d234a664a8d96a4a5",
+        "0x528353c93a6b407415bff6e4405b59755e870c806f8840b55d644105e995875",
     },
   },
 } as const;

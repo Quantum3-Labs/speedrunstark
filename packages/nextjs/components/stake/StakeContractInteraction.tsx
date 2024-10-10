@@ -36,19 +36,24 @@ export const StakeContractInteraction = ({ address }: { address?: string }) => {
   const { data: threshold } = useScaffoldReadContract({
     contractName: "Staker",
     functionName: "threshold",
+    args: [],
     watch: true,
   });
+
   const { data: timeLeft } = useScaffoldReadContract({
     contractName: "Staker",
     functionName: "time_left",
+    args: [],
     watch: true,
   });
 
   const { data: isStakingCompleted } = useScaffoldReadContract({
     contractName: "Staker",
     functionName: "completed",
+    args: [],
     watch: true,
   });
+
   const { data: myStake } = useScaffoldReadContract({
     contractName: "Staker",
     functionName: "balances",
@@ -56,16 +61,17 @@ export const StakeContractInteraction = ({ address }: { address?: string }) => {
     watch: true,
   });
 
-  const { writeAsync: execute } = useScaffoldWriteContract({
+  const { sendAsync: execute } = useScaffoldWriteContract({
     contractName: "Staker",
     functionName: "execute",
   });
-  const { writeAsync: withdrawETH } = useScaffoldWriteContract({
+  const { sendAsync: withdrawETH } = useScaffoldWriteContract({
     contractName: "Staker",
     functionName: "withdraw",
+    args: [],
   });
 
-  const { writeAsync: stakeEth } = useScaffoldMultiWriteContract({
+  const { sendAsync: stakeEth } = useScaffoldMultiWriteContract({
     calls: [
       {
         contractName: "Eth",
